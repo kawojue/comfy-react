@@ -1,7 +1,246 @@
 @tailwind base;
-@tailwind utilities;
 @tailwind components;
+@tailwind utilities;
+
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  @apply font-poppins
+  @apply font-poppins;
+}
+
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/main-bcg.jpeg') center/cover;
+}
+
+.trans-0 {
+  @apply transition-all ease-linear duration-200;
+}
+
+.trans-1 {
+  @apply transition-all ease-in-out duration-300;
+}
+
+.nav-links a:hover {
+  @apply text-pry-clr-2 transition-all ease-linear duration-500;
+}
+
+.open-btn {
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+#sidebar-cart.show.overlay {
+  @apply bg-pry-clr-z;
+}
+
+
+#sidebar-cart,
+#sidebar-cart-center {
+  transform: translate(100%);
+}
+
+#sidebar-cart.show,
+#sidebar-cart-center.show {
+  transform: translate(0);
+}
+
+.cart {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+/* Products */
+.btn-container button {
+  @apply capitalize bg-transparent text-pry-clr-9 text-sm tracking-wide;
+}
+
+.btn-container button:hover {
+  @apply text-pry-clr-11 transition-all ease-linear duration-300;
+}
+
+.product .image-container {
+  @apply w-[90vw] h-[15rem] overflow-hidden mb-4 relative;
+}
+
+.product .image-container img {
+  @apply object-cover w-full h-full rounded-md;
+}
+
+.product .product-icon {
+  @apply flex gap-[1rem] absolute top-[40%] right-[45%] z-[1];
+}
+
+.product .product-icon a,
+.product .product-icon button {
+  @apply text-lg px-2 py-0.5 bg-pry-clr-1 text-white rounded-full transition-all ease-linear duration-300;
+}
+
+.product .product-icon a:hover,
+.product .product-icon button:hover {
+  @apply bg-pry-clr-2;
+}
+
+.product footer p {
+  @apply text-sm font-medium text-pry-clr-9 capitalize;
+}
+
+.product footer span {
+  @apply text-xs font-semibold text-pry-clr-0;
+}
+
+@media screen and (min-width: 900px) {
+  .product .image-container {
+    @apply w-[250px] h-[10rem];
+  }
+
+  #container-products {
+    grid-template-columns: 200px 1fr;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .product .image-container {
+    @apply w-[300px] h-[10rem];
+  }
+
+  .product .product-icon {
+    @apply right-[40%]
+  }
+}
+
+.btn {
+  @apply capitalize bg-pry-clr-12 tracking-wider text-white text-sm rounded-md;
+}
+
+.link {
+  @apply capitalize flex flex-col gap-3;
+}
+
+.link img {
+  @apply object-cover w-[400px] h-[15rem] rounded-md overflow-hidden;
+}
+
+.foot h5 {
+  @apply text-[20px] text-pry-clr-16 mb-1;
+}
+
+.foot span {
+  @apply font-semibold text-[16px] text-pry-clr-15;
+}
+
+#container {
+  @apply grid gap-12 px-12
+}
+
+#container img {
+  @apply w-full object-cover rounded-md max-h-[20rem];
+}
+
+.sub-container {
+  @apply flex flex-col items-start justify-center text-start gap-2;
+}
+
+.title {
+  @apply text-3xl text-pry-clr-14 capitalize;
+}
+
+.subtitle {
+  @apply text-[20px] tracking-wider text-pry-clr-16 capitalize;
+}
+
+.price {
+  @apply text-sm;
+}
+
+.round-shape span {
+  @apply inline-block rounded-full w-[1rem] h-[1rem] mr-2;
+}
+
+.texts {
+  @apply leading-[28px] font-light mb-3 text-pry-clr-14;
+}
+
+.trans {
+  @apply transition-all ease-linear duration-300;
+}
+
+.product-cart {
+  @apply px-3 py-1 btn trans;
+}
+
+.product-cart:hover {
+  @apply bg-pry-clr-13;
+}
+
+/* Loading Spin with Animations */
+
+.loading-spin {
+  animation: dis-appear 2s ease-in-out infinite;
+}
+
+.spin-sector {
+  border: 15px solid transparent;
+  animation: rotate var(--duration) var(--timing) infinite;
+  @apply absolute w-full h-full mix-blend-overlay rounded-[50%] pointer-events-none;
+}
+
+.spin-sector-1 {
+  border-top-color: lightblue;
+  --timing: ease-in-out;
+  --duration: 0.75s;
+}
+
+.spin-sector-2 {
+  border-left-color: purple;
+  --timing: ease-in-out;
+  --duration: 1.25s;
+}
+
+.spin-sector-3 {
+  border-right-color: lightcoral;
+  --timing: ease-in-out;
+  --duration: 1.5s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.125);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dis-appear {
+
+  0%,
+  100% {
+    color: rgba(201, 198, 198, 1)
+  }
+
+  25%,
+  75% {
+    color: rgba(201, 198, 198, 0.5)
+  }
+
+  50% {
+    color: rgba(201, 198, 198, 0.1)
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
