@@ -1,11 +1,11 @@
 import Cart from './Cart'
 import SideBar from './SideBar'
-import SecondNav from './SecondNav'
+import AltNav from './AltNav'
 
 const About = () => {
     return (
         <section>
-            <SecondNav />
+            <AltNav />
             <Cart />
             <SideBar />
             <section class="bg-pry-clr-5 w-full px-10 md:px-20 py-10">

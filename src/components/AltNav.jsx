@@ -1,7 +1,7 @@
 import Context from './Context'
 import { useContext } from 'react'
 
-const SecondNav = () => {
+const AltNav = () => {
     const { Link, FaBars, BsFillCartFill,
         setCartModal, setSidebarModal } = useContext(Context)
 
@@ -43,4 +43,4 @@ const SecondNav = () => {
     )
 }
 
-export default SecondNav
+export default AltNav
