@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { GrClose } from 'react-icons/gr'
+import { SlMagnifier } from 'react-icons/sl'
 import { BsFillCartFill } from 'react-icons/bs'
 import { FaBars, FaHome, FaCouch, FaBook } from 'react-icons/fa'
 
@@ -66,7 +67,7 @@ export const DataProvider = ({ children }) => {
             allProducts, isLoading, msg,
             sidebarModal, setSidebarModal,
             cartModal, setCartModal,
-            featuredProducts
+            featuredProducts, SlMagnifier,
 
         }}>
             {children}
