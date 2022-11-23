@@ -36,11 +36,11 @@ body {
   @apply text-pry-clr-2 transition-all ease-linear duration-500;
 }
 
-.hero-view h1 {
+.hero-h1 {
   @apply text-[48px] font-kaushan font-semibold;
 }
 
-.hero-view h3 {
+.hero-h3 {
   @apply text-[24px] mb-5;
 }
 
@@ -75,6 +75,10 @@ body {
 
 .sidebar div {
   @apply flex flex-col gap-5 mt-12 text-xl text-pry-clr-4 w-fit;
+}
+
+.sidebar-link {
+  @apply flex gap-7 text-2xl
 }
 
 #sidebar-cart.show.overlay {
