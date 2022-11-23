@@ -28,6 +28,10 @@ body {
   @apply flex justify-between items-center absolute top-0 w-full px-7 py-3;
 }
 
+.navbar-2 {
+  @apply flex justify-between items-center w-full py-3 text-pry-clr-0;
+}
+
 .nav-links {
   @apply gap-10 text-[20px] hidden capitalize tracking-wider;
 }
