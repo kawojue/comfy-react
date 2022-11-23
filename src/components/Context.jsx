@@ -18,6 +18,7 @@ export const DataProvider = ({ children }) => {
     const [singleProduct, setSingleProduct] = useState([])
     const [cartModal, setCartModal] = useState(false)
     const [sidebarModal, setSidebarModal] = useState(false)
+    const [featuredProducts, setFeaturedProducts] = useState([])
 
     const fetchProducts = async () => {
         setIsLoading(true)
@@ -27,6 +28,15 @@ export const DataProvider = ({ children }) => {
             if (!res.ok) throw new Error("Please, check your connection")
             const data = await res.json()
             setAllProducts(data)
+
+            // get & set fetured products
+            const featured = []
+            data.forEach(d => {
+                if (d.fields.featured) {
+                    featured.push(d)
+                }
+            })
+            setFeaturedProducts(featured)
         } catch (err) {
             setMsg("Please, reload the page.")
         }
@@ -56,6 +66,7 @@ export const DataProvider = ({ children }) => {
             allProducts, isLoading, msg,
             sidebarModal, setSidebarModal,
             cartModal, setCartModal,
+            featuredProducts
 
         }}>
             {children}
