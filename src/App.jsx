@@ -1,8 +1,13 @@
+import Header from './components/Header'
+import { Routes, Route } from 'react-router-dom'
+
 function App() {
 
   return (
     <main>
-      <p>Greetings - Hello, World!</p>
+      <Routes>
+        <Route index element={<Header />} />
+      </Routes>
     </main>
   )
 }
