@@ -1,4 +1,4 @@
-import Header from './components/Header'
+import Home from './components/Home'
 import { Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
   return (
     <main>
       <Routes>
-        <Route index element={<Header />} />
+        <Route index element={<Home />} />
       </Routes>
     </main>
   )
