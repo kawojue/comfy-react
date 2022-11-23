@@ -133,6 +133,10 @@ body {
   @apply text-pry-clr-11 transition-all ease-linear duration-300;
 }
 
+.all-products-btn {
+  @apply px-10 py-1 bg-pry-clr-1 trans-0 uppercase text-white tracking-wider font-medium text-lg rounded-md mt-5;
+}
+
 .product .image-container {
   @apply w-[90vw] h-[15rem] overflow-hidden mb-4 relative;
 }
@@ -142,16 +146,14 @@ body {
 }
 
 .product .product-icon {
-  @apply flex gap-[1rem] absolute top-[40%] right-[45%] z-[1];
+  @apply absolute z-[1] top-0 left-0 w-full h-full grid place-items-center;
 }
 
-.product .product-icon a,
-.product .product-icon button {
-  @apply text-lg px-2 py-0.5 bg-pry-clr-1 text-white rounded-full transition-all ease-linear duration-300;
+.product .product-icon .show-prod {
+  @apply text-lg px-2 py-0.5 bg-pry-clr-1 text-white rounded-full trans-1;
 }
 
-.product .product-icon a:hover,
-.product .product-icon button:hover {
+.product .product-icon .show-prod:hover {
   @apply bg-pry-clr-2;
 }
 
@@ -161,6 +163,10 @@ body {
 
 .product footer span {
   @apply text-xs font-semibold text-pry-clr-0;
+}
+
+.products-container {
+  @apply w-full grid place-items-center text-center grid-cols-1 gap-[2rem] mb-10;
 }
 
 @media screen and (min-width: 900px) {
@@ -176,10 +182,6 @@ body {
 @media screen and (min-width: 1280px) {
   .product .image-container {
     @apply w-[300px] h-[10rem];
-  }
-
-  .product .product-icon {
-    @apply right-[40%]
   }
 }
 
@@ -250,6 +252,7 @@ body {
 /* Loading Spin with Animations */
 
 .loading-spin {
+  @apply w-[250px] h-[250px] relative grid place-items-center text-[2rem] overflow-hidden;
   animation: dis-appear 2s ease-in-out infinite;
 }
 
