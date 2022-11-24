@@ -19,7 +19,7 @@ const Featured = () => {
                         <p>{msg}</p> :
                         <article className='products-container md:grid-cols-2 lg:grid-cols-3 md:gap-[1.5rem]'>
                             {featuredProducts.map(({ id, fields }) => (
-                                <ProductsDisplay id={id} fields={fields} key={id} />
+                                <ProductsDisplay id={id} {...fields} key={id} />
                             ))}
                         </article>}
                     </>}

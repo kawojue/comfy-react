@@ -150,11 +150,11 @@ body {
 }
 
 .product .product-icon {
-  @apply absolute z-[1] top-0 left-0 w-full h-full grid place-items-center;
+  @apply absolute z-[1] top-0 left-0 w-full h-full flex items-center justify-center gap-3;
 }
 
 .product .product-icon .show-prod {
-  @apply text-lg px-2 py-0.5 bg-pry-clr-1 text-white rounded-full trans-1;
+  @apply text-lg px-2 py-1 bg-pry-clr-1 text-white rounded-full trans-1;
 }
 
 .product .product-icon .show-prod:hover {
