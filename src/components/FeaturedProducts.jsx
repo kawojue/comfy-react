@@ -24,7 +24,7 @@ const FeaturedProducts = () => {
                         </article>}
                     </>}
 
-                <Link to="./products"
+                <Link to="/products"
                     className="all-products-btn hover:bg-pry-clr-3">
                     all products
                 </Link>

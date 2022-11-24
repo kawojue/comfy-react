@@ -2,8 +2,7 @@ import Context from './Context'
 import { useContext } from 'react'
 
 const FilterButtons = () => {
-    const btns = ['all', 'ikea', 'marcos', 'caressa', 'liddy']
-    const { filteredProducts, allProducts } = useContext(Context)
+    const { filteredProducts, btns } = useContext(Context)
 
     return (
         <>

@@ -10,17 +10,17 @@ const Nav = () => {
             <div>
                 <ul className="nav-links md:flex">
                     <li>
-                        <Link to="./">
+                        <Link to="/">
                             home
                         </Link>
                     </li>
                     <li>
-                        <Link to="./products" target="_blank">
+                        <Link to="/products" target="_blank">
                             products
                         </Link>
                     </li>
                     <li>
-                        <Link to="./about" target="_blank">
+                        <Link to="/about" target="_blank">
                             about
                         </Link>
                     </li>

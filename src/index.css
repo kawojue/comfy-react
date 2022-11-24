@@ -124,7 +124,7 @@ body {
 }
 
 .cart {
-  display: grid;
+  @apply grid overflow-auto;
   grid-template-rows: auto 1fr auto;
 }
 

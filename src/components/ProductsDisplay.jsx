@@ -13,7 +13,7 @@ const ProductsDisplay = ({ id, name, price, image }) => {
                 <div className="image-container" onMouseOver={() => setShowProduct(true)} onMouseOut={() => setShowProduct(false)}>
                     <img src={url} alt={name} />
                     <div className="product-icon">
-                        <Link to={`./product/${id}`} target="_blank"
+                        <Link to={`/product/${id}`} target="_blank"
                             className={`show-prod ${showProduct ? '' : 'hidden'}`}>
                             <SlMagnifier />
                         </Link>

@@ -15,10 +15,14 @@ const AltNav = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/products" target="_blank">products</Link>
+                        <Link to="/products">
+                            products
+                        </Link>
                     </li>
                     <li>
-                        <Link to="/about">about</Link>
+                        <Link to="/about">
+                            about
+                        </Link>
                     </li>
                 </ul>
                 <button type="button" title="sidebar"
