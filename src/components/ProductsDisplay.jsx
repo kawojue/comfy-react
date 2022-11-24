@@ -1,11 +1,10 @@
 import Context from "./Context"
 import { useContext, useState } from "react"
 
-const ProductsDisplay = ({ id, fields }) => {
-    const { name, price, image } = fields
+const ProductsDisplay = ({ id, name, price, image }) => {
     const { url } = image[0]
     const formatPrice = price / 100
-    const { SlMagnifier, Link } = useContext(Context)
+    const { SlMagnifier, BsFillCartFill, Link } = useContext(Context)
     const [showProduct, setShowProduct] = useState(false)
 
     return (
@@ -18,6 +17,10 @@ const ProductsDisplay = ({ id, fields }) => {
                             className={`show-prod ${showProduct ? '' : 'hidden'}`}>
                             <SlMagnifier />
                         </Link>
+                        <button
+                            className={`show-prod ${showProduct ? '' : 'hidden'}`}>
+                            <BsFillCartFill />
+                        </button>
                     </div>
                 </div>
                 <footer>
