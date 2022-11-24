@@ -30,7 +30,7 @@ export const DataProvider = ({ children }) => {
             const data = await res.json()
             setAllProducts(data)
 
-            // get & set fetured products
+            // get & set featured products
             const featured = []
             data.forEach(d => {
                 if (d.fields.featured) {
@@ -43,15 +43,15 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    const fetchProduct = async id => {
-        try {
-            const res = await fetch(`${singleProductUrl}/${id}`)
-            const data = await res.json()
-            setSingleProduct(data)
-        } catch (err) {
-            setMsg("Product does not exists.")
-        }
-    }
+    // const fetchProduct = async id => {
+    //     try {
+    //         const res = await fetch(`${singleProductUrl}/${id}`)
+    //         const data = await res.json()
+    //         setSingleProduct(data)
+    //     } catch (err) {
+    //         setMsg("Product does not exists.")
+    //     }
+    // }
 
     useEffect(() => {
         (async () => await fetchProducts())()
@@ -59,6 +59,29 @@ export const DataProvider = ({ children }) => {
             setIsLoading(false)
         }, 1500)
     }, [])
+
+    const filteredProducts = async (action) => {
+        try {
+            const res = await fetch(allProductsUrl)
+            const data = await res.json()
+            const products = []
+            data.forEach(d => {
+                if (d.fields.company === action || action === 'all') {
+                    products.push(d)
+                }
+            })
+            setAllProducts(products)
+        } catch (err) {
+
+        }
+    }
+
+    // useEffect(() => {
+    //     (async () => await filteredProducts())()
+    //     setTimeout(() => {
+    //         setIsLoading(false)
+    //     }, 1500)
+    // }, [])
 
     return (
         <Context.Provider value={{
@@ -68,7 +91,7 @@ export const DataProvider = ({ children }) => {
             sidebarModal, setSidebarModal,
             cartModal, setCartModal,
             featuredProducts, SlMagnifier,
-
+            filteredProducts
         }}>
             {children}
         </Context.Provider>
