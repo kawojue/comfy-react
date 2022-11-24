@@ -1,22 +1,21 @@
-import { createContext, useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { GrClose } from 'react-icons/gr'
 import { SlMagnifier } from 'react-icons/sl'
 import { BsFillCartFill } from 'react-icons/bs'
+import { createContext, useState, useEffect } from 'react'
 import { FaBars, FaHome, FaCouch, FaBook } from 'react-icons/fa'
 
 const Context = createContext({})
 
 export const DataProvider = ({ children }) => {
+    const btns = ['all', 'ikea', 'marcos', 'caressa', 'liddy']
     const allProductsUrl = 'https://course-api.com/javascript-store-products'
     const singleProductUrl = 'https://course-api.com/javascript-store-single-product'
-
-    const { id } = useParams()
 
     const [msg, setMsg] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [allProducts, setAllProducts] = useState([])
-    const [singleProduct, setSingleProduct] = useState([])
+    const [search, setSearch] = useState("")
     const [cartModal, setCartModal] = useState(false)
     const [sidebarModal, setSidebarModal] = useState(false)
     const [featuredProducts, setFeaturedProducts] = useState([])
@@ -43,16 +42,6 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    // const fetchProduct = async id => {
-    //     try {
-    //         const res = await fetch(`${singleProductUrl}/${id}`)
-    //         const data = await res.json()
-    //         setSingleProduct(data)
-    //     } catch (err) {
-    //         setMsg("Product does not exists.")
-    //     }
-    // }
-
     useEffect(() => {
         (async () => await fetchProducts())()
         setTimeout(() => {
@@ -72,16 +61,9 @@ export const DataProvider = ({ children }) => {
             })
             setAllProducts(products)
         } catch (err) {
-
+            setMsg("Please, reload the page.")
         }
     }
-
-    // useEffect(() => {
-    //     (async () => await filteredProducts())()
-    //     setTimeout(() => {
-    //         setIsLoading(false)
-    //     }, 1500)
-    // }, [])
 
     return (
         <Context.Provider value={{
@@ -91,7 +73,8 @@ export const DataProvider = ({ children }) => {
             sidebarModal, setSidebarModal,
             cartModal, setCartModal,
             featuredProducts, SlMagnifier,
-            filteredProducts
+            filteredProducts, btns, search,
+            setSearch, singleProductUrl
         }}>
             {children}
         </Context.Provider>
