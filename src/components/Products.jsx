@@ -9,7 +9,8 @@ import FilterProducts from "./FilterProducts"
 import ProductsDisplay from "./ProductsDisplay"
 
 const Products = () => {
-    const { allProducts, isLoading } = useContext(Context)
+    const { allProducts, isLoading, msg } = useContext(Context)
+
     return (
         <>
             <AltNav />
@@ -21,12 +22,14 @@ const Products = () => {
                 <article className='products-container'>
                     {isLoading ?
                         <LoadingSpin /> :
-                        <>
-                            {allProducts.map(({ id, fields }) => (
-                                <ProductsDisplay key={id} id={id} {...fields} />
-                            ))}
-                        </>
-                    }
+                        <> {msg ?
+                            <p>{msg}</p> :
+                            <>
+                                {allProducts.map(({ id, fields }) => (
+                                    <ProductsDisplay key={id} id={id} {...fields} />
+                                ))}
+                            </>}
+                        </>}
                 </article>
             </section>
             <SideBar />
