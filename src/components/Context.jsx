@@ -9,6 +9,7 @@ const Context = createContext({})
 
 export const DataProvider = ({ children }) => {
     const btns = ['all', 'ikea', 'marcos', 'caressa', 'liddy']
+    const cartUrl = "http://localhost:3500/carts"
     const allProductsUrl = 'https://course-api.com/javascript-store-products'
     const singleProductUrl = 'https://course-api.com/javascript-store-single-product'
 
@@ -80,5 +81,7 @@ export const DataProvider = ({ children }) => {
         </Context.Provider>
     )
 }
+
+// cart & filtration (ongoing).
 
 export default Context
