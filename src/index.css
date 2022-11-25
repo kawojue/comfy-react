@@ -262,11 +262,11 @@ form h2 {
 }
 
 .subtitle {
-  @apply text-[20px] tracking-wider text-pry-clr-16 capitalize;
+  @apply text-[25px] tracking-wider text-pry-clr-16 uppercase font-kaushan;
 }
 
 .price {
-  @apply text-sm;
+  @apply font-semibold;
 }
 
 .round-shape span {
@@ -294,7 +294,7 @@ form h2 {
 }
 
 .nav-header-h1 {
-  @apply text-pry-clr-4 text-xl tracking-wider;
+  @apply text-pry-clr-4 text-xl tracking-wider capitalize;
 }
 
 .content {
