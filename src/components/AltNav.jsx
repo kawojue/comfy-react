@@ -31,7 +31,7 @@ const AltNav = () => {
                     <FaBars />
                 </button>
             </div>
-            <img src="./images/logo-black.svg" alt="logo-black" />
+            <img src="/images/logo-black.svg" alt="logo-black" />
             <button type="button" title="cart"
                 className="cart-open relative"
                 onClick={() => setCartModal(true)}>

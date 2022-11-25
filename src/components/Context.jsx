@@ -69,12 +69,12 @@ export const DataProvider = ({ children }) => {
         <Context.Provider value={{
             Link, GrClose, BsFillCartFill,
             FaBars, FaHome, FaCouch, FaBook,
-            allProducts, isLoading, msg,
+            allProducts, isLoading, msg, setMsg,
             sidebarModal, setSidebarModal,
             cartModal, setCartModal,
             featuredProducts, SlMagnifier,
             filteredProducts, btns, search,
-            setSearch, singleProductUrl
+            setSearch, singleProductUrl, setIsLoading
         }}>
             {children}
         </Context.Provider>
