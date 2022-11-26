@@ -3,7 +3,7 @@ import { useContext } from 'react'
 
 const AltNav = () => {
     const { Link, FaBars, BsFillCartFill,
-        setCartModal, setSidebarModal } = useContext(Context)
+        setCartModal, setSidebarModal, cartsLength } = useContext(Context)
 
     return (
         <nav className="navbar-2 lg:px-20 md:px-10 px-7 lg:py-4">
@@ -37,7 +37,7 @@ const AltNav = () => {
                 onClick={() => setCartModal(true)}>
                 <span
                     className="cart-no">
-                    0
+                    {cartsLength}
                 </span>
                 <span className="text-[25px]">
                     <BsFillCartFill />
