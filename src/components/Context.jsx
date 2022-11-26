@@ -17,7 +17,11 @@ export const DataProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [allProducts, setAllProducts] = useState([])
     const [search, setSearch] = useState("")
+    const [priceRange, setPriceRange] = useState(0)
+    const [filterValue, setFilterValue] = useState('all')
     const [cartModal, setCartModal] = useState(false)
+    const [carts, setCarts] = useState([])
+    const [cartsLength, setCartsLength] = useState(0)
     const [sidebarModal, setSidebarModal] = useState(false)
     const [featuredProducts, setFeaturedProducts] = useState([])
 
@@ -43,21 +47,33 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    useEffect(() => {
-        (async () => await fetchProducts())()
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 1500)
-    }, [])
-
-    const filteredProducts = async (action) => {
+    const filteredProducts = async (type, action = 'btn') => {
+        setIsLoading(true)
         try {
             const res = await fetch(allProductsUrl)
             const data = await res.json()
             const products = []
             data.forEach(d => {
-                if (d.fields.company === action || action === 'all') {
-                    products.push(d)
+                const { fields } = d
+                const { name, price, company } = fields
+                const formattedPrice = price / 100
+                if (action === 'btn') {
+                    if (company === type || type === 'all') {
+                        products.push(d)
+                        setFilterValue(`${type}`)
+                    }
+                }
+                if (action === 'search') {
+                    if (name.includes(type)) {
+                        products.push(d)
+                    }
+                    setFilterValue("searching...")
+                }
+                if (action === 'price') {
+                    if (formattedPrice <= type) {
+                        products.push(d)
+                        setFilterValue(`${type}`)
+                    }
                 }
             })
             setAllProducts(products)
@@ -66,22 +82,48 @@ export const DataProvider = ({ children }) => {
         }
     }
 
+    const fetchCarts = async () => {
+        try {
+            const res = await fetch(cartUrl)
+            const data = await res.json()
+            setCarts(data)
+        } catch (err) {
+            setMsg("Please, reload the page.")
+        }
+    }
+
+    useEffect(() => {
+        (async () => await fetchProducts())()
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 1500)
+    }, [])
+
+    useEffect(() => {
+        (async () => await fetchCarts())()
+    }, [])
+
+    useEffect(() => {
+        setCartsLength(carts.length)
+    }, [carts])
+
     return (
         <Context.Provider value={{
             Link, GrClose, BsFillCartFill,
             FaBars, FaHome, FaCouch, FaBook,
-            allProducts, isLoading, msg, setMsg,
+            cartModal, setCartModal, SlMagnifier,
             sidebarModal, setSidebarModal,
-            cartModal, setCartModal,
-            featuredProducts, SlMagnifier,
             filteredProducts, btns, search,
-            setSearch, singleProductUrl, setIsLoading
+            allProducts, isLoading, msg, setMsg,
+            setSearch, singleProductUrl, setIsLoading,
+            featuredProducts, cartsLength, priceRange,
+            setPriceRange, filterValue
         }}>
             {children}
         </Context.Provider>
     )
 }
 
-// cart & filtration (ongoing).
+// cart (ongoing).
 
 export default Context
