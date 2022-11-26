@@ -21,6 +21,7 @@ export const DataProvider = ({ children }) => {
     const [filterValue, setFilterValue] = useState('all')
     const [cartModal, setCartModal] = useState(false)
     const [carts, setCarts] = useState([])
+    const [quantity, setQuantity] = useState(0)
     const [cartsLength, setCartsLength] = useState(0)
     const [sidebarModal, setSidebarModal] = useState(false)
     const [featuredProducts, setFeaturedProducts] = useState([])
@@ -67,7 +68,7 @@ export const DataProvider = ({ children }) => {
                     if (name.includes(type)) {
                         products.push(d)
                     }
-                    setFilterValue("searching...")
+                    setFilterValue("searching..")
                 }
                 if (action === 'price') {
                     if (formattedPrice <= type) {
@@ -90,6 +91,12 @@ export const DataProvider = ({ children }) => {
         } catch (err) {
             setMsg("Please, reload the page.")
         }
+    }
+
+    const addToCart = async (item) => {
+        const id = new Date().toString()
+        // item: {id, name, formatPrice, url}
+        // carts: {id, item, quantity}
     }
 
     useEffect(() => {

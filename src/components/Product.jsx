@@ -23,9 +23,10 @@ const Product = () => {
             const { name, description, company, colors, image, price } = fields
             const { url } = image[0]
             const formatPrice = price / 100
-            const info = { id, name, description, company, colors, url, formatPrice }
+            const info = { name, description, company, colors, url, formatPrice }
+            const product = { id, name, url, formatPrice }
             setColors(colors)
-            setProduct(data)
+            setProduct(product)
             setProductInfo(info)
         } catch {
             setMsg("Product not found! Or check your internet connection.")
@@ -39,7 +40,7 @@ const Product = () => {
         }, 1000)
     }, [])
 
-    const { id, name, description, company, url, formatPrice } = productInfo
+    const { name, description, company, url, formatPrice } = productInfo
     document.title = name
 
     return (
