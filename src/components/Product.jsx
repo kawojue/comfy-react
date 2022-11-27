@@ -4,34 +4,12 @@ import SideBar from './SideBar'
 import Context from './Context'
 import LoadingSpin from './LoadingSpin'
 import { useParams } from 'react-router-dom'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 
 const Product = () => {
     const myID = useParams().id
-    const [colors, setColors] = useState([])
-    const [product, setProduct] = useState({})
-    const [productInfo, setProductInfo] = useState({})
-    const { singleProductUrl, msg, setMsg, Link,
-        isLoading, setIsLoading } = useContext(Context)
-
-    const fetchProduct = async ID => {
-        setMsg(null)
-        try {
-            const res = await fetch(`${singleProductUrl}?id=${ID}`)
-            const data = await res.json()
-            const { id, fields } = data
-            const { name, description, company, colors, image, price } = fields
-            const { url } = image[0]
-            const formatPrice = price / 100
-            const info = { name, description, company, colors, url, formatPrice }
-            const product = { id, name, url, formatPrice }
-            setColors(colors)
-            setProduct(product)
-            setProductInfo(info)
-        } catch {
-            setMsg("Product not found! Or check your internet connection.")
-        }
-    }
+    const { msg, Link, colors, productInfo, setIsLoading,
+        fetchProduct, isLoading, addToCart } = useContext(Context)
 
     useEffect(() => {
         (async () => await fetchProduct(myID))()
@@ -40,7 +18,7 @@ const Product = () => {
         }, 1000)
     }, [])
 
-    const { name, description, company, url, formatPrice } = productInfo
+    const { id, name, description, company, url, formatPrice } = productInfo
     document.title = name
 
     return (
@@ -75,7 +53,8 @@ const Product = () => {
                                         ))}
                                     </div>
                                     <p className="texts">{description}</p>
-                                    <button type="button" className="product-cart">
+                                    <button type="button" className="product-cart"
+                                        onClick={() => addToCart(id)}>
                                         add to cart
                                     </button>
                                 </div>
