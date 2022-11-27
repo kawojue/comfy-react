@@ -3,13 +3,14 @@ import { GrClose } from 'react-icons/gr'
 import { SlMagnifier } from 'react-icons/sl'
 import { BsFillCartFill } from 'react-icons/bs'
 import { createContext, useState, useEffect } from 'react'
+import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 import { FaBars, FaHome, FaCouch, FaBook } from 'react-icons/fa'
 
 const Context = createContext({})
 
 export const DataProvider = ({ children }) => {
     const btns = ['all', 'ikea', 'marcos', 'caressa', 'liddy']
-    const cartUrl = "http://localhost:3500/carts"
+    const cartUrl = "http://localhost:3500/cartlist"
     const allProductsUrl = 'https://course-api.com/javascript-store-products'
     const singleProductUrl = 'https://course-api.com/javascript-store-single-product'
 
@@ -22,6 +23,10 @@ export const DataProvider = ({ children }) => {
     const [cartModal, setCartModal] = useState(false)
     const [carts, setCarts] = useState([])
     const [quantity, setQuantity] = useState(0)
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [colors, setColors] = useState([])
+    const [productInfo, setProductInfo] = useState({})
+    const [product, setProduct] = useState({})
     const [cartsLength, setCartsLength] = useState(0)
     const [sidebarModal, setSidebarModal] = useState(false)
     const [featuredProducts, setFeaturedProducts] = useState([])
@@ -93,10 +98,51 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    const addToCart = async (item) => {
-        const id = new Date().toString()
-        // item: {id, name, formatPrice, url}
-        // carts: {id, item, quantity}
+    const fetchProduct = async ID => {
+        setMsg(null)
+        try {
+            const res = await fetch(`${singleProductUrl}?id=${ID}`)
+            const data = await res.json()
+            const { id, fields } = data
+            const { name, description, company, colors, image, price } = fields
+            const { url } = image[0]
+            const formatPrice = price / 100
+            const info = { id, name, description, company, colors, url, formatPrice }
+            const productObj = { id, name, url, formatPrice }
+            setColors(colors)
+            setProduct(productObj)
+            setProductInfo(info)
+        } catch {
+            setMsg("Product not found! Or check your internet connection.")
+        }
+    }
+
+
+    const addToCart = async myID => {
+        (async () => await fetchProduct(myID))
+        const { id, name, url, formatPrice } = product
+
+        console.log(product)
+        // setQuantity(quantity+1)
+        const newCart = { id, name, url, formatPrice, quantity: 1 }
+        setCarts([newCart, ...carts])
+
+        // await fetch(cartUrl, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(newCart)
+        // })
+    }
+
+    const removeCart = async id => {
+        const newCart = carts.filter(cart => id !== cart.id)
+        setCarts(newCart)
+
+        await fetch(`${cartUrl}/${id}`, {
+            method: 'DELETE'
+        })
     }
 
     useEffect(() => {
@@ -124,7 +170,9 @@ export const DataProvider = ({ children }) => {
             allProducts, isLoading, msg, setMsg,
             setSearch, singleProductUrl, setIsLoading,
             featuredProducts, cartsLength, priceRange,
-            setPriceRange, filterValue
+            setPriceRange, filterValue, BiChevronDown,
+            BiChevronUp, setProduct, product, addToCart,
+            colors, productInfo, fetchProduct
         }}>
             {children}
         </Context.Provider>
