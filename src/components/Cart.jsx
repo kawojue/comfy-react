@@ -1,8 +1,9 @@
 import Context from './Context'
 import { useContext } from 'react'
+import CartItem from './CartItem'
 
 const Cart = () => {
-    const { GrClose, cartModal, setCartModal } = useContext(Context)
+    const { GrClose, cartModal, setCartModal, totalPrice, carts } = useContext(Context)
 
     return (
         <section id="sidebar-cart" className={`${cartModal ? 'show' : ''}`}>
@@ -12,18 +13,20 @@ const Cart = () => {
                     onClick={() => setCartModal(false)}>
                     <GrClose />
                 </button>
-                <article className="cart h-full w-full">
-                    <h3 className="h-3 text-center">
+                <article className="cart">
+                    <h3 className="h-3">
                         your bag
                     </h3>
 
-                    <div className="cart-items">
-                        {/* cart goes here */}
+                    <div className="cart-list">
+                        {carts.map(cart => (
+                            <CartItem key={cart.id} {...cart} />
+                        ))}
                     </div>
 
                     <div className="total-container md:mb-10">
                         <h3 className="h-3">
-                            Total : $<span className="cart-price">0.00</span>
+                            Total : $<span className="cart-price">{totalPrice}</span>
                         </h3>
                         <button className="hover:bg-pry-clr-2 hover:text-pry-clr-6">
                             checkout
