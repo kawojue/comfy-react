@@ -22,8 +22,8 @@ export const DataProvider = ({ children }) => {
     const [filterValue, setFilterValue] = useState('all')
     const [cartModal, setCartModal] = useState(false)
     const [carts, setCarts] = useState([])
-    const [quantity, setQuantity] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0)
+    const [quant, setQuant] = useState(1)
     const [colors, setColors] = useState([])
     const [productInfo, setProductInfo] = useState({})
     const [product, setProduct] = useState({})
@@ -92,13 +92,7 @@ export const DataProvider = ({ children }) => {
         try {
             const res = await fetch(cartUrl)
             const data = await res.json()
-            // let total = 0
-            // data.forEach(d => {
-            //     const { formatPrice } = d
-            //     total += formatPrice
-            // })
             setCarts(data)
-            // setTotalPrice(total)
         } catch (err) {
             setMsg("Please, reload the page.")
         }
@@ -124,12 +118,13 @@ export const DataProvider = ({ children }) => {
     }
 
 
+
     const addToCart = async myID => {
         (async () => await fetchProduct(myID))()
         const { id, name, url, formatPrice } = product
 
         console.log(product)
-        const newCart = { id, name, url, formatPrice, quantity: 1 }
+        const newCart = { id, name, url, formatPrice, quantity: quant }
         setCarts([newCart, ...carts])
 
         await fetch(cartUrl, {
@@ -141,8 +136,6 @@ export const DataProvider = ({ children }) => {
         })
     }
 
-    console.log(carts)
-
     const removeCart = async id => {
         const newCart = carts.filter(cart => id !== cart.id)
         setCarts(newCart)
@@ -151,6 +144,42 @@ export const DataProvider = ({ children }) => {
             method: 'DELETE'
         })
     }
+
+    const fetchCart = async ID => {
+        const res = await fetch(`${cartUrl}/${ID}`)
+        const data = await res.json()
+        console.log(data)
+    }
+
+    const handleQuantity = async (action, ID) => {
+        let newCarts = []
+        if (action === 'increment') {
+            newCarts = carts.map(cart => cart.id === ID ? { ...cart, quantity: cart.quantity + 1 } : cart)
+        }
+        if (action === 'decrement') {
+            newCarts = carts.map(cart => {
+                if (cart.id === ID) {
+                    return { ...cart, quantity: cart.quantity - 1 }
+                }
+            })
+        }
+
+        setCarts(newCarts)
+
+        const getCart = carts.filter(cart => cart.id === ID)
+
+
+        await fetch(`${cartUrl}/${ID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(getCart[0])
+        })
+    }
+
+    console.log(carts)
+
 
     useEffect(() => {
         (async () => await fetchProducts())()
@@ -167,8 +196,9 @@ export const DataProvider = ({ children }) => {
         setCartsLength(carts.length)
         let total = 0
         carts.forEach(cart => {
-            const { formatPrice } = cart
-            total += formatPrice
+            const { formatPrice, quantity } = cart
+            const getPriceByQuantity = formatPrice * quantity
+            total += getPriceByQuantity
         })
         setTotalPrice(total.toFixed(2))
     }, [carts])
@@ -185,7 +215,8 @@ export const DataProvider = ({ children }) => {
             featuredProducts, cartsLength, priceRange,
             setPriceRange, filterValue, BiChevronDown,
             BiChevronUp, setProduct, product, addToCart,
-            colors, productInfo, fetchProduct, totalPrice
+            colors, productInfo, fetchProduct, totalPrice,
+            carts, removeCart, fetchCart, handleQuantity
         }}>
             {children}
         </Context.Provider>
