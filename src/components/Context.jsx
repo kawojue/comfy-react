@@ -23,7 +23,6 @@ export const DataProvider = ({ children }) => {
     const [cartModal, setCartModal] = useState(false)
     const [carts, setCarts] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
-    const [quant, setQuant] = useState(1)
     const [colors, setColors] = useState([])
     const [productInfo, setProductInfo] = useState({})
     const [product, setProduct] = useState({})
@@ -117,15 +116,12 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-
-
-    const addToCart = async myID => {
-        (async () => await fetchProduct(myID))()
+    const addToCart = async ID => {
+        (async () => await fetchProduct(ID))()
         const { id, name, url, formatPrice } = product
 
-        console.log(product)
-        const newCart = { id, name, url, formatPrice, quantity: quant }
-        setCarts([newCart, ...carts])
+        const newCart = { id, name, url, formatPrice, quantity: 1 }
+        setCarts([...carts, newCart])
 
         await fetch(cartUrl, {
             method: 'POST',
@@ -148,7 +144,6 @@ export const DataProvider = ({ children }) => {
     const fetchCart = async ID => {
         const res = await fetch(`${cartUrl}/${ID}`)
         const data = await res.json()
-        console.log(data)
     }
 
     const handleQuantity = async (action, ID) => {
@@ -156,14 +151,10 @@ export const DataProvider = ({ children }) => {
         if (action === 'increment') {
             newCarts = carts.map(cart => cart.id === ID ? { ...cart, quantity: cart.quantity + 1 } : cart)
         }
-        if (action === 'decrement') {
-            newCarts = carts.map(cart => {
-                if (cart.id === ID) {
-                    return { ...cart, quantity: cart.quantity - 1 }
-                }
-            })
-        }
 
+        if (action === 'decrement') {
+            newCarts = carts.map(cart => cart.id === ID ? { ...cart, quantity: cart.quantity - 1 } : cart)
+        }
         setCarts(newCarts)
 
         const getCart = carts.filter(cart => cart.id === ID)
@@ -178,8 +169,6 @@ export const DataProvider = ({ children }) => {
         })
     }
 
-    console.log(carts)
-
 
     useEffect(() => {
         (async () => await fetchProducts())()
@@ -192,15 +181,29 @@ export const DataProvider = ({ children }) => {
         (async () => await fetchCarts())()
     }, [])
 
+    const remDupCart = (cartList) => {
+        let newCarts = []
+        cartList.forEach(cart => {
+            cart
+            if (!newCarts.includes(cart)) {
+                newCarts.push(cart)
+            }
+        })
+    }
+
     useEffect(() => {
         setCartsLength(carts.length)
         let total = 0
         carts.forEach(cart => {
-            const { formatPrice, quantity } = cart
+            const { id, formatPrice, quantity } = cart
             const getPriceByQuantity = formatPrice * quantity
             total += getPriceByQuantity
+            if (cart.quantity < 1) {
+                removeCart(id)
+            }
         })
         setTotalPrice(total.toFixed(2))
+        remDupCart(carts)
     }, [carts])
 
     return (
