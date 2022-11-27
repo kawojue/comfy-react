@@ -92,7 +92,13 @@ export const DataProvider = ({ children }) => {
         try {
             const res = await fetch(cartUrl)
             const data = await res.json()
+            // let total = 0
+            // data.forEach(d => {
+            //     const { formatPrice } = d
+            //     total += formatPrice
+            // })
             setCarts(data)
+            // setTotalPrice(total)
         } catch (err) {
             setMsg("Please, reload the page.")
         }
@@ -119,22 +125,23 @@ export const DataProvider = ({ children }) => {
 
 
     const addToCart = async myID => {
-        (async () => await fetchProduct(myID))
+        (async () => await fetchProduct(myID))()
         const { id, name, url, formatPrice } = product
 
         console.log(product)
-        // setQuantity(quantity+1)
         const newCart = { id, name, url, formatPrice, quantity: 1 }
         setCarts([newCart, ...carts])
 
-        // await fetch(cartUrl, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(newCart)
-        // })
+        await fetch(cartUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newCart)
+        })
     }
+
+    console.log(carts)
 
     const removeCart = async id => {
         const newCart = carts.filter(cart => id !== cart.id)
@@ -158,6 +165,12 @@ export const DataProvider = ({ children }) => {
 
     useEffect(() => {
         setCartsLength(carts.length)
+        let total = 0
+        carts.forEach(cart => {
+            const { formatPrice } = cart
+            total += formatPrice
+        })
+        setTotalPrice(total.toFixed(2))
     }, [carts])
 
     return (
@@ -172,7 +185,7 @@ export const DataProvider = ({ children }) => {
             featuredProducts, cartsLength, priceRange,
             setPriceRange, filterValue, BiChevronDown,
             BiChevronUp, setProduct, product, addToCart,
-            colors, productInfo, fetchProduct
+            colors, productInfo, fetchProduct, totalPrice
         }}>
             {children}
         </Context.Provider>
