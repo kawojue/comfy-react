@@ -1,16 +1,18 @@
 import Context from "./Context"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 
 const ProductsDisplay = ({ id, name, price, image }) => {
     const { url } = image[0]
     const formatPrice = price / 100
-    const { SlMagnifier, BsFillCartFill, Link } = useContext(Context)
+    const { SlMagnifier, BsFillCartFill, Link,
+        addToCart, fetchProduct } = useContext(Context)
     const [showProduct, setShowProduct] = useState(false)
 
     return (
         <div>
             <div className="product">
-                <div className="image-container" onMouseOver={() => setShowProduct(true)} onMouseOut={() => setShowProduct(false)}>
+                <div className="image-container" onMouseOver={() => setShowProduct(true)}
+                    onMouseOut={() => setShowProduct(false)}>
                     <img src={url} alt={name} />
                     <div className="product-icon">
                         <Link to={`/product/${id}`} target="_blank"
@@ -18,7 +20,8 @@ const ProductsDisplay = ({ id, name, price, image }) => {
                             <SlMagnifier />
                         </Link>
                         <button
-                            className={`show-prod ${showProduct ? '' : 'hidden'}`}>
+                            className={`show-prod ${showProduct ? '' : 'hidden'}`}
+                            onClick={() => addToCart(id)}>
                             <BsFillCartFill />
                         </button>
                     </div>

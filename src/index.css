@@ -124,9 +124,15 @@ body {
 }
 
 .cart {
-  @apply grid overflow-auto;
+  @apply grid;
   grid-template-rows: auto 1fr auto;
 }
+
+.cart-items {
+  @apply flex flex-col gap-2 overflow-auto
+}
+
+.cart-list {}
 
 /* Products */
 .products {
