@@ -117,24 +117,18 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-    // const fetchCart = async ID => {
-    //     const res = await fetch(`${cartUrl}/${ID}`)
-    //     const data = await res.json()
-    //     return data
-    // }
-
     const manageCart = id => {
         const getCart = carts.filter(cart => cart.id === id)
-        let bool = null
+        let exists = null
         if (getCart.length === 1) {
             carts.forEach(cart => {
                 if (cart.id === id) {
-                    bool = true
+                    exists = true
                 } else {
-                    bool = false
+                    exists = false
                 }
             })
-            return bool
+            return exists
         } else {
             return false
         }
