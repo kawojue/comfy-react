@@ -157,8 +157,7 @@ export const DataProvider = ({ children }) => {
         }
         setCarts(newCarts)
 
-        const getCart = carts.filter(cart => cart.id === ID)
-
+        const getCart = newCarts.filter(cart => cart.id === ID)
 
         await fetch(`${cartUrl}/${ID}`, {
             method: 'PUT',
