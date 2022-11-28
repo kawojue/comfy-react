@@ -9,26 +9,25 @@ import { FaBars, FaHome, FaCouch, FaBook } from 'react-icons/fa'
 const Context = createContext({})
 
 export const DataProvider = ({ children }) => {
-    const btns = ['all', 'ikea', 'marcos', 'caressa', 'liddy']
     const cartUrl = "http://localhost:3500/cartlist"
+    const btns = ['all', 'ikea', 'marcos', 'caressa', 'liddy']
     const allProductsUrl = 'https://course-api.com/javascript-store-products'
     const singleProductUrl = 'https://course-api.com/javascript-store-single-product'
 
     const [msg, setMsg] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
-    const [allProducts, setAllProducts] = useState([])
-    const [search, setSearch] = useState("")
-    const [priceRange, setPriceRange] = useState(0)
-    const [filterValue, setFilterValue] = useState('all')
-    const [cartModal, setCartModal] = useState(false)
     const [carts, setCarts] = useState([])
-    const [totalPrice, setTotalPrice] = useState(0)
     const [colors, setColors] = useState([])
-    const [productInfo, setProductInfo] = useState({})
+    const [search, setSearch] = useState("")
     const [product, setProduct] = useState({})
+    const [priceRange, setPriceRange] = useState(0)
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [isLoading, setIsLoading] = useState(true)
+    const [cartModal, setCartModal] = useState(false)
     const [cartsLength, setCartsLength] = useState(0)
+    const [allProducts, setAllProducts] = useState([])
+    const [productInfo, setProductInfo] = useState({})
+    const [filterValue, setFilterValue] = useState('all')
     const [sidebarModal, setSidebarModal] = useState(false)
-    const [activeCartItem, setActiveCartItem] = useState({})
     const [featuredProducts, setFeaturedProducts] = useState([])
 
     const fetchProducts = async () => {

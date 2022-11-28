@@ -1,5 +1,5 @@
-import AltNav from './AltNav'
 import Cart from './Cart'
+import AltNav from './AltNav'
 import SideBar from './SideBar'
 
 const NotFound = () => {

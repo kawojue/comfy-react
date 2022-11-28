@@ -1,6 +1,6 @@
 import Context from './Context'
-import LoadingSpin from './LoadingSpin'
 import { useContext } from 'react'
+import LoadingSpin from './LoadingSpin'
 import ProductsDisplay from './ProductsDisplay'
 
 const FeaturedProducts = () => {

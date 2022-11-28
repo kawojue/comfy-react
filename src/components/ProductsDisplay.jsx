@@ -4,8 +4,7 @@ import { useContext, useState, useEffect } from "react"
 const ProductsDisplay = ({ id, name, price, image }) => {
     const { url } = image[0]
     const formatPrice = price / 100
-    const { SlMagnifier, BsFillCartFill, Link,
-        addToCart, fetchProduct } = useContext(Context)
+    const { SlMagnifier, BsFillCartFill, Link, addToCart } = useContext(Context)
     const [showProduct, setShowProduct] = useState(false)
 
     return (
@@ -20,8 +19,7 @@ const ProductsDisplay = ({ id, name, price, image }) => {
                             <SlMagnifier />
                         </Link>
                         <button
-                            className={`show-prod ${showProduct ? '' : 'hidden'}`}
-                            onClick={() => addToCart(id)}>
+                            className={`show-prod ${showProduct ? '' : 'hidden'}`}>
                             <BsFillCartFill />
                         </button>
                     </div>
