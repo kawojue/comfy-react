@@ -25,9 +25,13 @@ const Products = () => {
                         <> {msg ?
                             <p>{msg}</p> :
                             <>
-                                {allProducts.map(({ id, fields }) => (
-                                    <ProductsDisplay key={id} id={id} {...fields} />
-                                ))}
+                                {allProducts.length === 0 ?
+                                    <p className="h-3">Product not found!</p> :
+                                    <>
+                                        {allProducts.map(({ id, fields }) => (
+                                            <ProductsDisplay key={id} id={id} {...fields} />
+                                        ))}
+                                    </>}
                             </>}
                         </>}
                 </article>
