@@ -28,6 +28,7 @@ export const DataProvider = ({ children }) => {
     const [product, setProduct] = useState({})
     const [cartsLength, setCartsLength] = useState(0)
     const [sidebarModal, setSidebarModal] = useState(false)
+    const [activeCartItem, setActiveCartItem] = useState({})
     const [featuredProducts, setFeaturedProducts] = useState([])
 
     const fetchProducts = async () => {
@@ -77,7 +78,7 @@ export const DataProvider = ({ children }) => {
                 if (action === 'price') {
                     if (formattedPrice <= type) {
                         products.push(d)
-                        setFilterValue(`${type}`)
+                        setFilterValue(`<$${type}`)
                     }
                 }
             })
@@ -116,20 +117,46 @@ export const DataProvider = ({ children }) => {
         }
     }
 
+    // const fetchCart = async ID => {
+    //     const res = await fetch(`${cartUrl}/${ID}`)
+    //     const data = await res.json()
+    //     return data
+    // }
+
+    const manageCart = id => {
+        const getCart = carts.filter(cart => cart.id === id)
+        let bool = null
+        if (getCart.length === 1) {
+            carts.forEach(cart => {
+                if (cart.id === id) {
+                    bool = true
+                } else {
+                    bool = false
+                }
+            })
+            return bool
+        } else {
+            return false
+        }
+    }
+
     const addToCart = async ID => {
         (async () => await fetchProduct(ID))()
         const { id, name, url, formatPrice } = product
-
         const newCart = { id, name, url, formatPrice, quantity: 1 }
-        setCarts([...carts, newCart])
 
-        await fetch(cartUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newCart)
-        })
+        if (manageCart(ID)) {
+            setCarts([...carts])
+        } else {
+            setCarts([...carts, newCart])
+            await fetch(cartUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newCart)
+            })
+        }
     }
 
     const removeCart = async id => {
@@ -139,11 +166,6 @@ export const DataProvider = ({ children }) => {
         await fetch(`${cartUrl}/${id}`, {
             method: 'DELETE'
         })
-    }
-
-    const fetchCart = async ID => {
-        const res = await fetch(`${cartUrl}/${ID}`)
-        const data = await res.json()
     }
 
     const handleQuantity = async (action, ID) => {
@@ -180,16 +202,6 @@ export const DataProvider = ({ children }) => {
         (async () => await fetchCarts())()
     }, [])
 
-    const remDupCart = (cartList) => {
-        let newCarts = []
-        cartList.forEach(cart => {
-            cart
-            if (!newCarts.includes(cart)) {
-                newCarts.push(cart)
-            }
-        })
-    }
-
     useEffect(() => {
         setCartsLength(carts.length)
         let total = 0
@@ -202,7 +214,6 @@ export const DataProvider = ({ children }) => {
             }
         })
         setTotalPrice(total.toFixed(2))
-        remDupCart(carts)
     }, [carts])
 
     return (
@@ -218,7 +229,7 @@ export const DataProvider = ({ children }) => {
             setPriceRange, filterValue, BiChevronDown,
             BiChevronUp, setProduct, product, addToCart,
             colors, productInfo, fetchProduct, totalPrice,
-            carts, removeCart, fetchCart, handleQuantity
+            carts, removeCart, handleQuantity
         }}>
             {children}
         </Context.Provider>
