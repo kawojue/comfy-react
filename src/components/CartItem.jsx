@@ -16,12 +16,12 @@ const CartItem = ({ id, name, url, formatPrice, quantity }) => {
             </div>
             <div className="quant-container">
                 <button className='incre-quant'
-                    onClick={() => handleQuantity('decrement', id)}>
+                    onClick={() => handleQuantity('DECREMENT', id)}>
                     <BiChevronUp />
                 </button>
                 <p>{quantity}</p>
                 <button className='decre-quant'
-                    onClick={() => handleQuantity('increment', id)}>
+                    onClick={() => handleQuantity('INCREMENT', id)}>
                     <BiChevronDown />
                 </button>
             </div>

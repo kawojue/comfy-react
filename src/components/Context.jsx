@@ -133,13 +133,28 @@ export const DataProvider = ({ children }) => {
         }
     }
 
+    const handleQuantity = async (action, ID) => {
+        const newCarts = carts.map(cart => cart.id === ID ? { ...cart, quantity: action === 'INCREMENT' ? cart.quantity + 1 : cart.quantity - 1 } : cart)
+        setCarts(newCarts)
+
+        const getCart = newCarts.filter(cart => cart.id === ID)
+
+        await fetch(`${cartUrl}/${ID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(getCart[0])
+        })
+    }
+
     const addToCart = async ID => {
         (async () => await fetchProduct(ID))()
         const { id, name, url, formatPrice } = product
         const newCart = { id, name, url, formatPrice, quantity: 1 }
 
         if (manageCart(ID)) {
-            setCarts([...carts])
+            handleQuantity('INCREMENT', ID)
         } else {
             setCarts([...carts, newCart])
             await fetch(cartUrl, {
@@ -158,28 +173,6 @@ export const DataProvider = ({ children }) => {
 
         await fetch(`${cartUrl}/${id}`, {
             method: 'DELETE'
-        })
-    }
-
-    const handleQuantity = async (action, ID) => {
-        let newCarts = []
-        if (action === 'increment') {
-            newCarts = carts.map(cart => cart.id === ID ? { ...cart, quantity: cart.quantity + 1 } : cart)
-        }
-
-        if (action === 'decrement') {
-            newCarts = carts.map(cart => cart.id === ID ? { ...cart, quantity: cart.quantity - 1 } : cart)
-        }
-        setCarts(newCarts)
-
-        const getCart = newCarts.filter(cart => cart.id === ID)
-
-        await fetch(`${cartUrl}/${ID}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(getCart[0])
         })
     }
 
