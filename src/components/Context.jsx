@@ -134,7 +134,15 @@ export const DataProvider = ({ children }) => {
     }
 
     const handleQuantity = async (action, ID) => {
-        const newCarts = carts.map(cart => cart.id === ID ? { ...cart, quantity: action === 'INCREMENT' ? cart.quantity + 1 : cart.quantity - 1 } : cart)
+        const newCarts = carts.map(cart => cart.id === ID ?
+            {
+                ...cart, quantity: action === 'INCREMENT' ?
+                    cart.quantity + 1 :
+                    cart.quantity <= 1 ?
+                        1 :
+                        cart.quantity - 1
+            } :
+            cart)
         setCarts(newCarts)
 
         const getCart = newCarts.filter(cart => cart.id === ID)
@@ -192,12 +200,9 @@ export const DataProvider = ({ children }) => {
         setCartsLength(carts.length)
         let total = 0
         carts.forEach(cart => {
-            const { id, formatPrice, quantity } = cart
+            const { formatPrice, quantity } = cart
             const getPriceByQuantity = formatPrice * quantity
             total += getPriceByQuantity
-            if (cart.quantity < 1) {
-                (async () => await removeCart(id))()
-            }
         })
         setTotalPrice(total.toFixed(2))
     }, [carts])
