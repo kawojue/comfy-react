@@ -227,6 +227,4 @@ export const DataProvider = ({ children }) => {
     )
 }
 
-// cart (ongoing).
-
 export default Context
