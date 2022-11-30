@@ -213,11 +213,15 @@ form h2 {
 }
 
 .product .product-icon {
-  @apply absolute z-[1] top-0 left-0 w-full h-full flex items-center justify-center gap-3;
+  @apply absolute z-[1] top-0 left-0 w-full h-full flex items-center justify-center trans-0;
 }
 
 .product .product-icon .show-prod {
   @apply text-lg px-2 py-1 bg-pry-clr-1 text-white rounded-full trans-1;
+}
+
+.product .product-icon:hover {
+  @apply bg-pry-clr-z
 }
 
 .product .product-icon .show-prod:hover {
