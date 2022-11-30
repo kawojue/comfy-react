@@ -196,7 +196,7 @@ export const DataProvider = ({ children }) => {
             const getPriceByQuantity = formatPrice * quantity
             total += getPriceByQuantity
             if (cart.quantity < 1) {
-                removeCart(id)
+                (async () => await removeCart(id))()
             }
         })
         setTotalPrice(total.toFixed(2))
