@@ -33,7 +33,7 @@ const Nav = () => {
                 </button>
             </div>
 
-            <LazyLoadImage src="./images/logo-white.svg" alt="logo-white" />
+            <LazyLoadImage src="../../public/images/logo-white.svg" alt="logo-white" />
             <button type="button" title="cart"
                 className="cart-open relative"
                 onClick={() => setCartModal(true)}>
