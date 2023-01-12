@@ -10,10 +10,10 @@ import { FaBars, FaHome, FaCouch, FaBook } from 'react-icons/fa'
 const Context = createContext({})
 
 export const DataProvider = ({ children }) => {
-    const cartUrl = "http://localhost:3500/cartlist"
+    const cartUrl = new URL("http://localhost:3500/cartlist")
     const btns = ['all', 'ikea', 'marcos', 'caressa', 'liddy']
-    const allProductsUrl = 'https://course-api.com/javascript-store-products'
-    const singleProductUrl = 'https://course-api.com/javascript-store-single-product'
+    const allProductsUrl = new URL('https://course-api.com/javascript-store-products')
+    const singleProductUrl = new URL('https://course-api.com/javascript-store-single-product')
 
     const [msg, setMsg] = useState(null)
     const [carts, setCarts] = useState([])
