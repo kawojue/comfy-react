@@ -3,7 +3,8 @@ import { useContext } from 'react'
 
 const Nav = () => {
     const { Link, FaBars, BsFillCartFill,
-        setCartModal, setSidebarModal, cartsLength } = useContext(Context)
+        setCartModal, setSidebarModal,
+        cartsLength, LazyLoadImage } = useContext(Context)
 
     return (
         <nav className="navbar lg:py-4 lg:px-20 md:px-10">
@@ -32,7 +33,7 @@ const Nav = () => {
                 </button>
             </div>
 
-            <img src="./images/logo-white.svg" alt="logo-white" />
+            <LazyLoadImage src="./images/logo-white.svg" alt="logo-white" />
             <button type="button" title="cart"
                 className="cart-open relative"
                 onClick={() => setCartModal(true)}>
