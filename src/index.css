@@ -133,7 +133,7 @@ body {
 }
 
 .cart-item {
-  @apply grid gap-5 items-center;
+  @apply grid gap-5 items-center text-pry-clr-0;
   grid-template-columns: auto 1fr auto;
 }
 
