@@ -8,8 +8,9 @@ import { useContext, useEffect } from 'react'
 
 const Product = () => {
     const myID = useParams().id
-    const { msg, Link, colors, productInfo, setIsLoading,
-        fetchProduct, isLoading, addToCart } = useContext(Context)
+    const { msg, Link, colors, productInfo,
+        setIsLoading, fetchProduct, isLoading,
+        addToCart, LazyLoadImage } = useContext(Context)
 
     useEffect(() => {
         (async () => await fetchProduct(myID))()
@@ -42,7 +43,7 @@ const Product = () => {
                         <>{msg ?
                             <p>{msg}</p> :
                             <article id="container" className="md:grid-cols-2 md:gap-8">
-                                <img src={url} alt={name} />
+                                <LazyLoadImage src={url} alt={name} />
                                 <div className="sub-container">
                                     <h3 className="title">{name}</h3>
                                     <p className="subtitle">by {company}</p>
