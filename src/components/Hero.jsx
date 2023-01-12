@@ -12,7 +12,7 @@ const Hero = () => {
             <h3 className="hero-h3 lg:text-[44px] md:text-[24px]">
                 Embrace your choices - we do
             </h3>
-            <Link to="./products"
+            <Link to="/products"
                 className="shop-btn hover:bg-white hover:text-pry-clr-1 md:text-[16px]">
                 shop now
             </Link>
