@@ -4,6 +4,7 @@ import { SlMagnifier } from 'react-icons/sl'
 import { BsFillCartFill } from 'react-icons/bs'
 import { createContext, useState, useEffect } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { FaBars, FaHome, FaCouch, FaBook } from 'react-icons/fa'
 
 const Context = createContext({})
@@ -220,7 +221,7 @@ export const DataProvider = ({ children }) => {
             setPriceRange, filterValue, BiChevronDown,
             BiChevronUp, setProduct, product, addToCart,
             colors, productInfo, fetchProduct, totalPrice,
-            carts, removeCart, handleQuantity
+            carts, removeCart, handleQuantity, LazyLoadImage
         }}>
             {children}
         </Context.Provider>
