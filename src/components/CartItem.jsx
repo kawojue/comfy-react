@@ -2,11 +2,12 @@ import Context from './Context'
 import { useContext } from 'react'
 
 const CartItem = ({ id, name, url, formatPrice, quantity }) => {
-    const { BiChevronDown, BiChevronUp, removeCart, handleQuantity } = useContext(Context)
+    const { BiChevronDown, BiChevronUp, removeCart,
+        handleQuantity, LazyLoadImage } = useContext(Context)
 
     return (
         <article className="cart-item">
-            <img src={url} alt={name} className="cart-img" />
+            <LazyLoadImage src={url} alt={name} className="cart-img" />
             <div className="cart-info">
                 <h5>{name}</h5>
                 <p>${formatPrice}</p>
