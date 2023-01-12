@@ -21,6 +21,7 @@
     "json-server": "^0.17.1",
     "postcss": "^8.4.19",
     "react-icons": "^4.6.0",
+    "react-lazy-load-image-component": "^1.5.6",
     "react-router": "^6.4.3",
     "react-router-dom": "^6.4.3",
     "tailwindcss": "^3.2.4",
