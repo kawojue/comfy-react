@@ -32,7 +32,7 @@ const AltNav = () => {
                     <FaBars />
                 </button>
             </div>
-            <LazyLoadImage src="/images/logo-black.svg" alt="logo-black" />
+            <LazyLoadImage src="../../public/images/logo-black.svg" alt="logo-black" />
             <button type="button" title="cart"
                 className="cart-open relative"
                 onClick={() => setCartModal(true)}>
