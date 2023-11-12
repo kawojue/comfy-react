@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+1import { Link } from 'react-router-dom'
 import { GrClose } from 'react-icons/gr'
 import { SlMagnifier } from 'react-icons/sl'
 import { BsFillCartFill } from 'react-icons/bs'
@@ -122,14 +122,10 @@ export const DataProvider = ({ children }) => {
         let exists = false
         if (getCart.length === 1) {
             carts.forEach(cart => {
-                if (cart.id === id) {
-                    exists = true
-                }
+                if (cart.id === id) exists = true
             })
-            return exists
-        } else {
-            return false
         }
+        return exists
     }
 
     const handleQuantity = async (action, ID) => {
