@@ -1,7 +1,9 @@
 import Context from './Context'
 import { useContext } from 'react'
 
-const CartItem = ({ id, name, url, formatPrice, quantity }) => {
+const CartItem = ({
+    id, name, url, formatPrice, quantity
+}) => {
     const { BiChevronDown, BiChevronUp, removeCart,
         handleQuantity, LazyLoadImage } = useContext(Context)
 
