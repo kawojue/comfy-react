@@ -152,8 +152,7 @@ export const DataProvider = ({ children }) => {
     }
 
     const addToCart = async ID => {
-        console.log(product);
-        (async () => await fetchProduct(ID))()
+        (async () => await fetchProduct(ID))();
         const { id, name, url, formatPrice } = product
         const newCart = { id, name, url, formatPrice, quantity: 1 }
 
