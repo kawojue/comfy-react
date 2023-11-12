@@ -119,13 +119,11 @@ export const DataProvider = ({ children }) => {
 
     const manageCart = id => {
         const getCart = carts.filter(cart => cart.id === id)
-        let exists = null
+        let exists = false
         if (getCart.length === 1) {
             carts.forEach(cart => {
                 if (cart.id === id) {
                     exists = true
-                } else {
-                    exists = false
                 }
             })
             return exists
