@@ -83,7 +83,7 @@ export const DataProvider = ({ children }) => {
                 }
             })
             setAllProducts(products)
-        } catch (err) {
+        } catch {
             setMsg("Please, reload the page.")
         }
     }
