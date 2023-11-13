@@ -1,4 +1,4 @@
-1import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { GrClose } from 'react-icons/gr'
 import { SlMagnifier } from 'react-icons/sl'
 import { BsFillCartFill } from 'react-icons/bs'
@@ -140,14 +140,14 @@ export const DataProvider = ({ children }) => {
             cart)
         setCarts(newCarts)
 
-        const getCart = newCarts.filter(cart => cart.id === ID)
+        const getCart = newCarts.find(cart => cart.id === ID)
 
         await fetch(`${cartUrl}/${ID}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(getCart[0])
+            body: JSON.stringify(getCart)
         })
     }
 
