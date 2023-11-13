@@ -118,14 +118,9 @@ export const DataProvider = ({ children }) => {
     }
 
     const manageCart = id => {
-        const getCart = carts.filter(cart => cart.id === id)
-        let exists = false
-        if (getCart.length === 1) {
-            carts.forEach(cart => {
-                if (cart.id === id) exists = true
-            })
-        }
-        return exists
+        const cart = carts.find(cart => cart.id === id)
+        if (!cart) return false
+        return true
     }
 
     const handleQuantity = async (action, ID) => {
